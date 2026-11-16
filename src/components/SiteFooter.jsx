@@ -27,8 +27,14 @@ export default function SiteFooter() {
         </nav>
 
         <nav aria-labelledby="footer-help">
-          <h2 id="footer-help">Your order</h2>
+          <h2 id="footer-help">Explore</h2>
           <ul>
+            <li>
+              <Link to="/trails">Trail finder</Link>
+            </li>
+            <li>
+              <Link to="/journal">Trail Journal</Link>
+            </li>
             <li>
               <Link to="/cart">Cart</Link>
             </li>

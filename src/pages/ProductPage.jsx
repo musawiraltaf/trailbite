@@ -7,6 +7,7 @@ import StockStatus from '../components/StockStatus.jsx'
 import AddToCart from '../components/AddToCart.jsx'
 import { PrepSteps, PrepSummary } from '../components/PreparationInfo.jsx'
 import { formatPrice } from '../lib/format.js'
+import { trails } from '../data/trails.js'
 import {
   DELIVERY_FEE,
   FREE_DELIVERY_THRESHOLD,
@@ -165,6 +166,24 @@ function buildSections(product) {
           <Info size={18} className="icon" aria-hidden="true" />
           <p>Preparation instructions for this item are not available yet. Most of our breakfasts need about 200 ml of hot water and 5 minutes.</p>
         </div>
+      ),
+    })
+  }
+
+  // Trails whose pack list includes this product (links the shop back to the trail finder)
+  const goodFor = trails.filter((trail) => trail.packList.some((item) => item.id === product.id))
+  if (goodFor.length > 0) {
+    list.push({
+      id: 'trails',
+      title: 'Good for these trails',
+      content: (
+        <ul className="trail-chips">
+          {goodFor.map((trail) => (
+            <li key={trail.id}>
+              <Link to={`/trails/${trail.id}`}>{trail.name}</Link>
+            </li>
+          ))}
+        </ul>
       ),
     })
   }

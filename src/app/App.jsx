@@ -6,6 +6,10 @@ import ProductPage from '../pages/ProductPage.jsx'
 import CartPage from '../pages/CartPage.jsx'
 import CheckoutPage from '../pages/CheckoutPage.jsx'
 import ConfirmationPage from '../pages/ConfirmationPage.jsx'
+import TrailsPage from '../pages/TrailsPage.jsx'
+import TrailPage from '../pages/TrailPage.jsx'
+import JournalPage from '../pages/JournalPage.jsx'
+import PostPage from '../pages/PostPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage.jsx'
 
 // Route map (FR01, FR02). Every page renders inside <Layout>, which holds the
@@ -20,6 +24,10 @@ export default function App() {
         <Route path="cart" element={<CartPage />} />
         <Route path="checkout" element={<CheckoutPage />} />
         <Route path="confirmation" element={<ConfirmationPage />} />
+        <Route path="trails" element={<TrailsPage />} />
+        <Route path="trails/:id" element={<TrailPage />} />
+        <Route path="journal" element={<JournalPage />} />
+        <Route path="journal/:slug" element={<PostPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

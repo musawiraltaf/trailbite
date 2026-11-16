@@ -35,6 +35,12 @@ export default function SiteHeader() {
               <NavLink to="/shop">Shop</NavLink>
             </li>
             <li>
+              <NavLink to="/trails">Trails</NavLink>
+            </li>
+            <li>
+              <NavLink to="/journal">Journal</NavLink>
+            </li>
+            <li>
               <NavLink to="/cart" aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}>
                 <ShoppingBag size={18} className="icon" aria-hidden="true" />
                 <span className="nav-label--optional">Cart</span>
