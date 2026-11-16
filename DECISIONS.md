@@ -12,7 +12,7 @@ Code locations and evidence are completed as each feature is built.
 - **Alternative:** Show a coloured stock badge over the product image.
 - **Reason:** Shoppers compare name, size, price and availability without opening each product.
 - **Tradeoff:** Cards are taller, so fewer fit on screen.
-- **Code location:** TODO (milestone 2/4)
+- **Code location:** `src/components/ProductCard.jsx` (`ProductCard`), `src/components/StockStatus.jsx` (`getStockLabel`), `src/styles/global.css` section 7 (`.product-card__body`, `.product-card__footer`)
 - **Evidence:** TODO
 
 ## D02 — Build the cart in place with shared state (interaction / state)
@@ -32,5 +32,5 @@ Code locations and evidence are completed as each feature is built.
 - **Alternative:** Keep a fixed tab set and show "Coming soon" in empty tabs.
 - **Reason:** Customers deciding on a trail meal need to know the water and time it requires before buying.
 - **Tradeoff:** Product data must follow a stricter structure.
-- **Code location:** TODO (milestone 2)
+- **Code location:** `src/pages/ProductPage.jsx` (`buildSections`), `src/components/PreparationInfo.jsx` (`PrepSummary`, `PrepSteps`), `src/data/products.js` (`preparation` field)
 - **Evidence:** TODO

@@ -37,11 +37,11 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | ID | Requirement | Where | Status |
 |---|---|---|---|
 | FR01 | ≥3 meaningful routes, Back/Forward work | `src/app/App.jsx` (/, /shop, /products/:id, /cart, /checkout, /confirmation) | 🟡 M2/M3 |
-| FR02 | Parameterised route; invalid ID shows useful feedback | `src/pages/ProductPage.jsx` | ⬜ M2 |
+| FR02 | Parameterised route; invalid ID shows useful feedback | `src/pages/ProductPage.jsx` (`ProductNotFound`) | ✅ |
 | FR03 | ≥10 local records with stable IDs | `src/data/products.js` | ✅ |
-| FR04 | Search relevant text fields | `src/lib/catalogue.js`, `ShopPage` | ⬜ M2 |
-| FR05 | ≥1 filter + ≥1 sort, both work with search | `ShopPage` | ⬜ M2 |
-| FR06 | Details: price, conditions, availability | `ProductPage` | ⬜ M2 |
+| FR04 | Search relevant text fields | `src/lib/catalogue.js` (`matchesSearch`), `ShopPage` | ✅ |
+| FR05 | ≥1 filter + ≥1 sort, both work with search | `ShopFilters`, `ShopPage` (category, diet, in-stock; 4 sorts) | ✅ |
+| FR06 | Details: price, conditions, availability | `ProductPage` | ✅ (add-to-cart in M3) |
 | FR07 | Add/remove, change quantities | Cart context, `QuantityStepper` | ⬜ M3 |
 | FR08 | Shared state across listing, details, cart, summary | Cart context | ⬜ M3 |
 | FR09 | Controlled form, ≥3 fields in main journey | `CheckoutPage` | ⬜ M3 |
@@ -49,8 +49,8 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | FR11 | Calculated summary (count, subtotal, delivery, total) | `OrderSummary` | ⬜ M3 |
 | FR12 | All three rules work and block invalid completion | Cart + checkout | ⬜ M3 |
 | FR13 | localStorage save and restore | `src/lib/storage.js` | ⬜ M3 |
-| FR14 | Async mock loader with loading, failure, retry | `src/lib/mockLoader.js`, `CatalogueContext`, `CatalogueStatus` | 🟡 M2 |
-| FR15 | Empty dataset vs no matches, with guidance | `ShopPage` | ⬜ M2 |
+| FR14 | Async mock loader with loading, failure, retry | `src/lib/mockLoader.js`, `CatalogueContext`, `CatalogueStatus` | 🟡 works; demo toggle in M5 |
+| FR15 | Empty dataset vs no matches, with guidance | `ShopPage` (`NoMatches`) | 🟡 no-match done; empty-dataset demo in M5 |
 | FR16 | Clear confirmation | `ConfirmationPage` | ⬜ M3 |
 | FR17 | Works at 390 px and 1280 px, and by keyboard | CSS + manual check | ⬜ M4 |
 | FR18 | All three problems addressed in the app | P1 `ProductCard`, P2 stepper + cart, P3 `ProductPage` sections | ⬜ |
@@ -62,8 +62,8 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 |---|---|---|
 | Components and modules (imports/exports) | `src/components`, `src/pages` | 🟡 |
 | JSX, suitable HTML elements | All components | 🟡 |
-| Props | `ProductCard`, `StockStatus` | ⬜ |
-| Callback props | `QuantityStepper onChange`, filter controls | ⬜ |
+| Props | `ProductCard`, `StockStatus`, `ProductGrid` | ✅ |
+| Callback props | `ShopFilters onChange/onClear`; stepper in M3 | 🟡 |
 | Events, preventDefault on form submit | `CheckoutPage` | ⬜ |
 | useState and controlled inputs | `ShopPage` filters, checkout form | ⬜ |
 | Functional updates | `setAttempt(n => n + 1)`, cart updates | 🟡 |
@@ -72,9 +72,9 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | Lists and stable keys | Product grid (`product.id`) | 🟡 |
 | Conditional rendering (availability, validation, loading, error, empty) | Several | 🟡 |
 | Shared state (context) | `CatalogueContext`, cart context | 🟡 |
-| Derived values | Filtered list, totals | ⬜ |
+| Derived values | `ShopPage` results (`useMemo`); totals in M3 | 🟡 |
 | useEffect with dependencies and cleanup | `CatalogueContext` (AbortController), storage sync | 🟡 |
-| Array methods, spread, destructuring | `catalogue.js`, cart | ⬜ |
+| Array methods, spread, destructuring | `catalogue.js` (filter/sort/every), cart in M3 | 🟡 |
 | async/await or .then with failure handling | `CatalogueContext` | ✅ |
 | localStorage read/write | `storage.js` | ⬜ |
 | Routes, URL params, links, navigation | `App.jsx`, `useParams`, `useSearchParams`, `useNavigate` | 🟡 |
@@ -103,7 +103,7 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | Case | Status |
 |---|---|
 | Missing or long content keeps the layout usable, with fallbacks | 🟡 data prepared (long name, missing description/prep) |
-| Empty results or invalid URL: explain + next action | ⬜ M2 |
+| Empty results or invalid URL: explain + next action | ✅ `NoMatches`, `ProductNotFound`, `NotFoundPage` |
 | Invalid form input: specific feedback, valid input kept | ⬜ M3 |
 | Unavailable or restored selection checked against current data, conflict explained, correctable | ⬜ M5 |
 | Loading failure: clear error + working retry | 🟡 |
