@@ -1,36 +1,21 @@
-// Milestone 1 placeholder: shows the business profile and confirms the catalogue
-// loads. Routes, the shop and the cart are added in later milestones.
-import { business } from '../data/business.js'
-import { products, CATEGORIES } from '../data/products.js'
-import { formatPrice } from '../lib/format.js'
+import { Route, Routes } from 'react-router-dom'
+import Layout from '../components/Layout.jsx'
+import HomePage from '../pages/HomePage.jsx'
+import ShopPage from '../pages/ShopPage.jsx'
+import ProductPage from '../pages/ProductPage.jsx'
+import NotFoundPage from '../pages/NotFoundPage.jsx'
 
+// Route map (FR01, FR02). Every page renders inside <Layout>, which holds the
+// header and footer and shows the current page through <Outlet />.
 export default function App() {
   return (
-    <main className="setup-page">
-      <h1>{business.name}</h1>
-      <p className="tagline">{business.tagline}</p>
-
-      <dl className="profile">
-        <dt>Offering</dt>
-        <dd>{business.offering}</dd>
-        <dt>Audience</dt>
-        <dd>{business.audience}</dd>
-        <dt>Operating area</dt>
-        <dd>{business.operatingArea}</dd>
-        <dt>Main task</dt>
-        <dd>{business.mainTask}</dd>
-      </dl>
-
-      <h2>
-        Catalogue: {products.length} products in {CATEGORIES.length} categories
-      </h2>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name} — {formatPrice(product.price)} — {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
-          </li>
-        ))}
-      </ul>
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="shop" element={<ShopPage />} />
+        <Route path="products/:id" element={<ProductPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
