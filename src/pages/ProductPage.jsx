@@ -3,6 +3,7 @@ import { useCatalogue } from '../app/CatalogueContext.jsx'
 import CatalogueStatus from '../components/CatalogueStatus.jsx'
 import ProductImage from '../components/ProductImage.jsx'
 import StockStatus from '../components/StockStatus.jsx'
+import AddToCart from '../components/AddToCart.jsx'
 import { PrepSteps, PrepSummary } from '../components/PreparationInfo.jsx'
 import { formatPrice } from '../lib/format.js'
 import {
@@ -78,6 +79,10 @@ export default function ProductPage() {
           </ul>
 
           <PrepSummary preparation={preparation} />
+
+          <div className="product-detail__buy">
+            <AddToCart product={product} size="large" />
+          </div>
 
           <div className="button-row">
             {/* Back keeps the shop's filters; a direct visit (no history) goes to the shop. */}

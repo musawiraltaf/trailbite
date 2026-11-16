@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import ProductImage from './ProductImage.jsx'
 import StockStatus from './StockStatus.jsx'
+import AddToCart from './AddToCart.jsx'
 import { formatPrice } from '../lib/format.js'
 
+// The cart control at the bottom is the fix for Problem 2: adding or changing a
+// quantity happens right here, without leaving the listing.
+//
 // Product card — fix for Problem 1 (reference cards let price and stock collide,
 // cut names off with "..." and hid pack size).
 // Each piece of information has its own row:
@@ -44,6 +48,7 @@ export default function ProductCard({ product }) {
         <div className="product-card__footer">
           <p className="product-card__price">{formatPrice(price)}</p>
           <StockStatus stock={stock} />
+          <AddToCart product={product} />
         </div>
       </div>
     </article>

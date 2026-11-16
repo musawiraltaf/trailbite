@@ -1,6 +1,10 @@
 import { Link, NavLink } from 'react-router-dom'
+import { useCart } from '../app/CartContext.jsx'
 
 export default function SiteHeader() {
+  const { summary } = useCart()
+  const count = summary.itemCount
+
   return (
     <header className="site-header">
       <div className="site-header__inner">
@@ -22,6 +26,14 @@ export default function SiteHeader() {
             </li>
             <li>
               <NavLink to="/shop">Shop</NavLink>
+            </li>
+            <li>
+              <NavLink to="/cart" aria-label={`Cart, ${count} ${count === 1 ? 'item' : 'items'}`}>
+                Cart
+                <span className={`cart-badge${count === 0 ? ' cart-badge--empty' : ''}`} aria-hidden="true">
+                  {count}
+                </span>
+              </NavLink>
             </li>
           </ul>
         </nav>
