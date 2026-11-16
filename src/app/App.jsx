@@ -3,6 +3,7 @@ import Layout from '../components/Layout.jsx'
 import HomePage from '../pages/HomePage.jsx'
 import ShopPage from '../pages/ShopPage.jsx'
 import ProductPage from '../pages/ProductPage.jsx'
+import CartPage from '../pages/CartPage.jsx'
 import NotFoundPage from '../pages/NotFoundPage.jsx'
 
 // Route map (FR01, FR02). Every page renders inside <Layout>, which holds the
@@ -14,6 +15,7 @@ export default function App() {
         <Route index element={<HomePage />} />
         <Route path="shop" element={<ShopPage />} />
         <Route path="products/:id" element={<ProductPage />} />
+        <Route path="cart" element={<CartPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
