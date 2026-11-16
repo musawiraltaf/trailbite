@@ -1,0 +1,33 @@
+/* Base styles. The full TrailBite design system is added in milestone 4. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2a24;
+  background: #f6f3ec;
+  line-height: 1.5;
+}
+
+.setup-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.tagline {
+  color: #4b5a51;
+}
+
+.profile dt {
+  font-weight: 700;
+  margin-top: 12px;
+}
+
+.profile dd {
+  margin: 0;
+}
