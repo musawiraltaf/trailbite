@@ -36,6 +36,35 @@ export function checkQuantity(product, quantity) {
   return { ok: true, max }
 }
 
+/**
+ * Re-checks a saved cart against the current catalogue (restored-selection edge case).
+ * Returns one entry per problem line:
+ *   { id, quantity, kind: 'discontinued' | 'sold-out' | 'over-stock', product, max, fixQuantity, message }
+ * fixQuantity is what the line should become: 0 = remove it, otherwise the new limit.
+ */
+export function findCartIssues(items, products) {
+  const issues = []
+  for (const { id, quantity } of items) {
+    const product = products.find((item) => item.id === id)
+    if (!product) {
+      issues.push({ id, quantity, kind: 'discontinued', product: null, max: 0, fixQuantity: 0, message: 'This item is no longer sold.' })
+      continue
+    }
+    const result = checkQuantity(product, quantity)
+    if (result.ok) continue
+    issues.push({
+      id,
+      quantity,
+      product,
+      kind: result.max === 0 ? 'sold-out' : 'over-stock',
+      max: result.max,
+      fixQuantity: result.max,
+      message: result.max === 0 ? 'Now out of stock.' : `Only ${result.max} can be ordered now; you have ${quantity}.`,
+    })
+  }
+  return issues
+}
+
 // ---------------------------------------------------------------------------
 // Rule 2 — Eligibility
 // Orders that contain an age-restricted item (gas canisters, knives) can only be

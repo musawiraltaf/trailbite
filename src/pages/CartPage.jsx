@@ -3,6 +3,7 @@ import { ShieldCheck, ShoppingBag } from 'lucide-react'
 import { useCart } from '../app/CartContext.jsx'
 import { useCatalogue } from '../app/CatalogueContext.jsx'
 import CatalogueStatus from '../components/CatalogueStatus.jsx'
+import CartIssues from '../components/CartIssues.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
 import ProductArt from '../components/ProductArt.jsx'
 import QuantityStepper from '../components/QuantityStepper.jsx'
@@ -12,11 +13,12 @@ import { formatPrice } from '../lib/format.js'
 // Quantity changes update the totals immediately; nothing reloads (Problem 2).
 export default function CartPage() {
   const { status } = useCatalogue()
-  const { lines, summary, setQuantity, removeItem } = useCart()
+  const { lines, issues, summary, setQuantity, removeItem } = useCart()
 
   if (status !== 'ready') return <CatalogueStatus />
 
-  if (lines.length === 0) {
+  // Only discontinued items left: still show the explanation instead of "empty"
+  if (lines.length === 0 && issues.length === 0) {
     return (
       <section className="state-panel">
         <ShoppingBag size={36} className="state-panel__icon" aria-hidden="true" />
@@ -32,6 +34,7 @@ export default function CartPage() {
   return (
     <section aria-labelledby="cart-heading">
       <h1 id="cart-heading">Your cart</h1>
+      <CartIssues />
 
       <div className="cart-layout">
         <ul className="cart-lines">
@@ -82,9 +85,15 @@ export default function CartPage() {
 
         <OrderSummary summary={summary}>
           <div className="order-summary__actions">
-            <Link to="/checkout" className="button button--primary button--block">
-              Continue to checkout
-            </Link>
+            {issues.length > 0 ? (
+              <button type="button" className="button button--primary button--block" disabled>
+                Fix the cart to continue
+              </button>
+            ) : (
+              <Link to="/checkout" className="button button--primary button--block">
+                Continue to checkout
+              </Link>
+            )}
             <Link to="/shop" className="button button--secondary button--block">
               Keep shopping
             </Link>

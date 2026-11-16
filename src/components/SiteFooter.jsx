@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { business } from '../data/business.js'
 import { CATEGORIES } from '../data/products.js'
+import DemoPanel from './DemoPanel.jsx'
 
 export default function SiteFooter() {
   return (
@@ -43,6 +44,9 @@ export default function SiteFooter() {
             </li>
           </ul>
         </nav>
+      </div>
+      <div className="site-footer__demo">
+        <DemoPanel />
       </div>
     </footer>
   )

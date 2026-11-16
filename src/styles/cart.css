@@ -168,7 +168,7 @@
   color: var(--color-ink);
 }
 
-.delivery-progress p {
+.delivery-progress__free {
   display: flex;
   gap: 6px;
   align-items: flex-start;
@@ -334,4 +334,79 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: var(--space-5);
+}
+
+/* Cart conflicts after a stock change (restored-selection edge case) */
+.cart-issues {
+  border: 1.5px solid var(--color-warning);
+  background: var(--color-warning-bg);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.cart-issues h2 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--color-warning);
+}
+
+.cart-issues p {
+  margin: 0;
+  color: var(--color-ink-muted);
+}
+
+.cart-issues ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.cart-issues li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid rgb(243 192 107 / 0.2);
+}
+
+.cart-issues .link-button {
+  color: var(--color-accent);
+}
+
+.cart-issues-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-warning-bg);
+  border-bottom: 1px solid rgb(243 192 107 / 0.35);
+  color: var(--color-ink);
+  font-size: 0.92rem;
+}
+
+.cart-issues-banner svg {
+  color: var(--color-warning);
+}
+
+.cart-issues-banner p {
+  margin: 0;
+}
+
+.cart-issues-banner a {
+  font-weight: 700;
+  color: var(--color-accent);
 }

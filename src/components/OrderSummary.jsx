@@ -33,7 +33,7 @@ export default function OrderSummary({ summary, children }) {
 
       {subtotal > 0 && (
         <div className="delivery-progress">
-          <p>
+          <p className={toFreeDelivery > 0 ? undefined : 'delivery-progress__free'}>
             {toFreeDelivery > 0 ? (
               <>
                 Add <strong>{formatPrice(toFreeDelivery)}</strong> more for free delivery (saves{' '}

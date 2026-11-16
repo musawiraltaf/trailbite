@@ -49,11 +49,11 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | FR11 | Calculated summary (count, subtotal, delivery, total) | `src/lib/orderSummary.js`, `OrderSummary` | ✅ |
 | FR12 | All three rules work and block invalid completion | `QuantityStepper`, `validateCheckout`, `findStockProblems` | ✅ |
 | FR13 | localStorage save and restore | `src/lib/storage.js`, `CartContext` | ✅ |
-| FR14 | Async mock loader with loading, failure, retry | `src/lib/mockLoader.js`, `CatalogueContext`, `CatalogueStatus` | 🟡 works; demo toggle in M5 |
-| FR15 | Empty dataset vs no matches, with guidance | `ShopPage` (`NoMatches`) | 🟡 no-match done; empty-dataset demo in M5 |
+| FR14 | Async mock loader with loading, failure, retry | `mockLoader.js`, `CatalogueContext`, `CatalogueStatus`, `DemoPanel` | ✅ |
+| FR15 | Empty dataset vs no matches, with guidance | `ShopPage` (`NoMatches`), demo *Empty catalogue* | ✅ |
 | FR16 | Clear confirmation | `ConfirmationPage` (survives refresh via sessionStorage) | ✅ |
 | FR17 | Works at 390 px and 1280 px, and by keyboard | Checked every page at both widths; focus moves to main on route change | ✅ |
-| FR18 | All three problems addressed in the app | P1 `ProductCard`, P2 stepper + cart, P3 `ProductPage` sections | ⬜ |
+| FR18 | All three problems addressed in the app | P1 `ProductCard`, P2 stepper + cart, P3 `ProductPage` sections | ✅ `docs/verification.md` |
 | FR19 | Deployed: assets, navigation, nested-route refresh | Vercel + `vercel.json` | ⬜ M5 |
 
 ## Task 4 — React and JavaScript (20 marks)
@@ -102,14 +102,14 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 
 | Case | Status |
 |---|---|
-| Missing or long content keeps the layout usable, with fallbacks | 🟡 data prepared (long name, missing description/prep) |
+| Missing or long content keeps the layout usable, with fallbacks | ✅ long name wraps; description/preparation notices; SVG fallback for images |
 | Empty results or invalid URL: explain + next action | ✅ `NoMatches`, `ProductNotFound`, `NotFoundPage` |
 | Invalid form input: specific feedback, valid input kept | ✅ checkout |
-| Unavailable or restored selection checked against current data, conflict explained, correctable | ⬜ M5 |
-| Loading failure: clear error + working retry | 🟡 |
-| Documented demo controls for load failure and changed availability | ⬜ M5 |
-| Actions/expected/observed checklist for each improvement | ⬜ M5 |
-| No console errors or React warnings in Chrome/Edge | ⬜ M5 |
+| Unavailable or restored selection checked against current data, conflict explained, correctable | ✅ `findCartIssues`, `CartIssues` |
+| Loading failure: clear error + working retry | ✅ |
+| Documented demo controls for load failure and changed availability | ✅ `DemoPanel`, README |
+| Actions/expected/observed checklist for each improvement | ✅ `docs/verification.md` |
+| No console errors or React warnings in Chrome/Edge | ✅ checked |
 | node:test file with valid, at-limit and breaking cases, same function used by the app | ✅ `tests/businessRules.test.js` |
 
 ## Task 7 — GitHub (3) and deployment (3)

@@ -45,6 +45,8 @@ npm test         # run business-rule tests with node --test
 
 Rule logic lives in `src/rules/businessRules.js`. Tests are in `tests/businessRules.test.js`.
 
+**Test result:** `npm test` runs 14 cases with Node's built-in runner (valid, exactly-at-limit and breaking inputs for each rule, plus restored-cart checks): 14 passed, 0 failed.
+
 ## Routes
 
 | Route | Page |
@@ -80,7 +82,56 @@ docs/          Reference-site investigation notes
 - [x] Milestone 2: components, routes, browsing (search, filter, sort, details)
 - [x] Milestone 3: cart, checkout form, rule enforcement
 - [x] Milestone 4: dark theme, landing page, trail finder, journal, responsive styling and motion
-- [ ] Milestone 5: edge cases, documentation, deployment
+- [x] Milestone 5: demo controls, restored-cart checks, verification, deployment preparation
+
+## Reproducing the edge cases
+
+Open **Assignment demo controls** at the bottom of any page. Settings last until the browser tab is closed; "Reset to normal data" turns them off.
+
+| Case | Steps |
+|---|---|
+| Loading failure and retry | Tick *Loading failure*: the catalogue shows an error with **Try again**, which reloads successfully. |
+| Empty catalogue vs no matches | Tick *Empty catalogue* to see "The shelves are empty". Untick it and open `/shop?q=pizza&category=Drinks` to see the different no-match state. |
+| Changed availability / restored cart | Add 3 Daal Chawal, 1 Chicken Biryani and the Ridge Patch, then tick *Supplier stock update* (or refresh with it on). A banner appears on every page; the cart explains each conflict with **Change to 1** / **Remove** / **Fix all**; checkout is blocked until fixed. |
+| Invalid URLs | `/products/not-a-product`, `/trails/unknown`, `/journal/unknown`, `/any/other/path`. |
+| Invalid form input | At checkout, enter a one-word name, `12345` as phone, choose Lahore, and (with a knife in the cart) a date of birth less than 18 years ago. |
+| Rule boundaries | Type 5 then 6 into a stepper; Beef Pulao stops at 2 (stock); Rs 1,950 vs Rs 2,000 subtotal; birthday exactly 18 years ago today. |
+
+Full actions / expected / observed results: `docs/verification.md`.
+
+## Simulated operations and limitations
+
+- Orders are simulated: nothing is sent to a server and no payment is taken (cash on delivery is only described). The confirmation is kept in `sessionStorage` so a refresh still shows it.
+- The cart (product IDs, names, quantities) is saved in `localStorage`. Phone numbers and addresses are never stored.
+- Stock is local data; it does not decrease when an order is placed. Changed stock is demonstrated with the demo controls.
+- The age check trusts the date of birth entered; a real shop would check ID on delivery (stated at checkout).
+- Product images are illustrations, not photographs. Trail distances and times are approximate.
+- Trail and journal content is static local data (no CMS).
+
+## Concept map
+
+| Concept | File | Component / function |
+|---|---|---|
+| Function components, JSX, props | `src/components/ProductCard.jsx` | `ProductCard({ product })` |
+| Callback props | `src/components/QuantityStepper.jsx`, `ShopFilters.jsx` | `onChange`, `onClear` |
+| Events, preventDefault | `src/pages/CheckoutPage.jsx` | `handleSubmit` |
+| useState, controlled inputs | `src/pages/CheckoutPage.jsx` | `form` state, `bind()` |
+| Functional updates | `src/app/CartContext.jsx` | `setItems((current) => ...)` |
+| Immutable object update | `src/pages/CheckoutPage.jsx` | `setForm((prev) => ({ ...prev, [name]: value }))` |
+| Immutable array add/remove/update | `src/app/CartContext.jsx` | `setQuantity`, `removeById`, `fixAllIssues` |
+| Lists and stable keys | `src/components/ProductGrid.jsx` | `key={product.id}` |
+| Conditional rendering | `src/components/AddToCart.jsx`, `CatalogueStatus.jsx` | out of stock / add / stepper; loading / error |
+| Shared state (Context) | `src/app/CatalogueContext.jsx`, `CartContext.jsx` | `useCatalogue`, `useCart` |
+| Derived values | `src/lib/orderSummary.js`, `src/pages/ShopPage.jsx` | `calculateSummary`, filtered `results` |
+| useEffect, dependencies, cleanup | `src/app/CatalogueContext.jsx`, `src/components/TrailJourney.jsx` | AbortController; scroll listener + IntersectionObserver |
+| Async code with failure handling | `src/lib/mockLoader.js`, `CatalogueContext.jsx` | `loadProducts().then().catch()` |
+| localStorage | `src/lib/storage.js` | `readCart`, `saveCart` |
+| Routing, URL params, navigation | `src/app/App.jsx`, `ProductPage.jsx`, `ShopPage.jsx` | `useParams`, `useSearchParams`, `useNavigate` |
+| Business rules and tests | `src/rules/businessRules.js`, `tests/businessRules.test.js` | `checkQuantity`, `checkAgeEligibility`, `getDeliveryFee`, `findCartIssues` |
+
+## Deployment
+
+The app is a static Vite build. On Vercel: import the GitHub repository, keep the detected **Vite** preset (build `npm run build`, output `dist`) and deploy. `vercel.json` rewrites every path to `index.html`, so direct links and refreshes on nested routes work. (`public/_redirects` does the same on Netlify.)
 
 ## Design and assets
 

@@ -8,11 +8,12 @@ import { useCatalogue } from './CatalogueContext.jsx'
 import { checkQuantity } from '../rules/businessRules.js'
 import { readCart, saveCart } from '../lib/storage.js'
 import { calculateSummary } from '../lib/orderSummary.js'
+import { findCartIssues } from '../rules/businessRules.js'
 
 const CartContext = createContext(null)
 
 export function CartProvider({ children }) {
-  const { products } = useCatalogue()
+  const { products, status } = useCatalogue()
 
   // Lazy initial state: read localStorage once, on first render only.
   const [items, setItems] = useState(() => readCart())
@@ -44,7 +45,7 @@ export function CartProvider({ children }) {
       const exists = current.some((item) => item.id === product.id)
       return exists
         ? current.map((item) => (item.id === product.id ? { ...item, quantity } : item)) // update one line
-        : [...current, { id: product.id, quantity }] // add a new line
+        : [...current, { id: product.id, name: product.name, quantity }] // add a new line (name kept for messages)
     })
     setNotice({ id: Date.now(), text: `${product.name}: ${quantity} in cart.` })
     return result
@@ -67,7 +68,46 @@ export function CartProvider({ children }) {
 
   const getQuantity = useCallback((id) => items.find((item) => item.id === id)?.quantity ?? 0, [items])
 
-  const value = { items, lines, summary, getQuantity, setQuantity, removeItem, clearCart, notice, dismissNotice }
+  // Restored-selection check (edge case): the saved cart is compared with the
+  // CURRENT catalogue every time either changes. Only run once the catalogue has
+  // loaded, otherwise every saved item would look "discontinued" while loading.
+  const issues = useMemo(
+    () => (status === 'ready' ? findCartIssues(items, products) : []),
+    [items, products, status],
+  )
+
+  /** Removes a saved line by id (works even when the product no longer exists). */
+  const removeById = useCallback((id) => {
+    setItems((current) => current.filter((item) => item.id !== id))
+  }, [])
+
+  /** Applies every suggested fix at once: lower to the limit, or remove. */
+  const fixAllIssues = useCallback(() => {
+    setItems((current) =>
+      current
+        .map((item) => {
+          const issue = issues.find((entry) => entry.id === item.id)
+          return issue ? { ...item, quantity: issue.fixQuantity } : item
+        })
+        .filter((item) => item.quantity > 0),
+    )
+    setNotice({ id: Date.now(), text: 'Your cart now matches what is in stock.' })
+  }, [issues])
+
+  const value = {
+    items,
+    lines,
+    summary,
+    issues,
+    getQuantity,
+    setQuantity,
+    removeItem,
+    removeById,
+    fixAllIssues,
+    clearCart,
+    notice,
+    dismissNotice,
+  }
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 

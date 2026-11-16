@@ -1,7 +1,7 @@
 // Checkout form validation (FR10) plus the rule checks that must pass before an
 // order can be placed (FR12). Returns an object of field -> message; an empty
 // object means the form is valid.
-import { checkAgeEligibility, checkQuantity, checkServiceArea } from '../rules/businessRules.js'
+import { checkAgeEligibility, checkServiceArea } from '../rules/businessRules.js'
 
 export const CITY_OPTIONS = ['Islamabad', 'Rawalpindi', 'Lahore', 'Peshawar', 'Karachi', 'Other']
 export const DELIVERY_SLOTS = ['Morning (9am – 12pm)', 'Afternoon (12pm – 4pm)', 'Evening (4pm – 8pm)']
@@ -67,14 +67,4 @@ export function validateCheckout(form, { lines, today }) {
   if (!age.ok) errors.dateOfBirth = age.message
 
   return errors
-}
-
-/**
- * Rule 1 re-check just before ordering: stock may have changed since the item was added.
- * Returns a list of problems, one per affected product.
- */
-export function findStockProblems(lines) {
-  return lines
-    .map(({ product, quantity }) => ({ product, quantity, result: checkQuantity(product, quantity) }))
-    .filter(({ result }) => !result.ok)
 }

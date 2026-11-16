@@ -89,8 +89,17 @@ export default function QuantityStepper({ product, quantity, onChange, size = 'n
 
       {/* Rule 1 is shown beside the control, not only after it is broken. */}
       <p id={hintId} className={`stepper__hint${message ? ' stepper__hint--error' : ''}`} aria-live="polite">
-        {message || (atLimit ? `Limit reached: ${max} max` : `Max ${max} per order`)}
+        {message || stepperHint(quantity, max)}
       </p>
     </div>
   )
+}
+
+// Hint under the stepper: Rule 1 stated before it is broken, and an honest
+// description when stock changed after the item was added.
+function stepperHint(quantity, max) {
+  if (max === 0) return 'Out of stock'
+  if (quantity > max) return `Only ${max} available`
+  if (quantity === max) return `Limit reached: ${max} max`
+  return `Max ${max} per order`
 }

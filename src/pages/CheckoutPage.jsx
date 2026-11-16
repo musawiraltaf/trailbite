@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../app/CartContext.jsx'
 import { useCatalogue } from '../app/CatalogueContext.jsx'
 import CatalogueStatus from '../components/CatalogueStatus.jsx'
+import CartIssues from '../components/CartIssues.jsx'
 import FormField from '../components/FormField.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
 import { formatPrice } from '../lib/format.js'
@@ -11,7 +12,6 @@ import {
   CITY_OPTIONS,
   DELIVERY_SLOTS,
   EMPTY_FORM,
-  findStockProblems,
   todayISO,
   validateCheckout,
 } from '../lib/validation.js'
@@ -24,7 +24,7 @@ const FIELD_ORDER = ['fullName', 'phone', 'city', 'address', 'slot', 'dateOfBirt
 export default function CheckoutPage() {
   const navigate = useNavigate()
   const { status } = useCatalogue()
-  const { lines, summary, setQuantity, removeItem, clearCart } = useCart()
+  const { lines, issues, summary, removeItem, clearCart } = useCart()
 
   // One state object for the whole form; every input reads its value from here.
   const [form, setForm] = useState(EMPTY_FORM)
@@ -50,7 +50,6 @@ export default function CheckoutPage() {
   const needsAge = lines.some((line) => line.product.ageRestricted)
   // Derived on every render from current values, so messages are never stale.
   const errors = validateCheckout(form, { lines, today })
-  const stockProblems = findStockProblems(lines)
   const visibleError = (field) => (submitted || touched[field] ? errors[field] : undefined)
   const errorList = FIELD_ORDER.filter((field) => errors[field])
 
@@ -69,9 +68,14 @@ export default function CheckoutPage() {
     event.preventDefault() // stay in the React app instead of reloading the page
     setSubmitted(true)
 
-    if (errorList.length > 0 || stockProblems.length > 0) {
+    // Rule 1 re-check: the cart must match current stock before ordering.
+    if (errorList.length > 0 || issues.length > 0) {
       // Move focus to the error list after React has rendered it.
-      setTimeout(() => errorSummaryRef.current?.focus(), 0)
+      // Move focus to the form's error list, or to the top where the stock conflicts are.
+      setTimeout(() => {
+        if (errorSummaryRef.current) errorSummaryRef.current.focus()
+        else window.scrollTo({ top: 0 })
+      }, 0)
       return // invalid input is kept so the customer only fixes what is wrong
     }
 
@@ -105,24 +109,13 @@ export default function CheckoutPage() {
         <strong>Simulated order.</strong> Nothing is charged or delivered. Payment would be cash on delivery.
       </p>
 
-      {submitted && (errorList.length > 0 || stockProblems.length > 0) && (
+      {/* Stock conflicts are shown straight away, not only after submitting */}
+      <CartIssues />
+
+      {submitted && errorList.length > 0 && (
         <div className="error-summary" role="alert" tabIndex={-1} ref={errorSummaryRef}>
-          <h2>Please fix {errorList.length + stockProblems.length === 1 ? 'this problem' : 'these problems'}</h2>
+          <h2>Please fix {errorList.length === 1 ? 'this problem' : 'these problems'}</h2>
           <ul>
-            {stockProblems.map(({ product, result }) => (
-              <li key={product.id}>
-                {product.name}: {result.message}{' '}
-                {result.max > 0 ? (
-                  <button type="button" className="link-button" onClick={() => setQuantity(product, result.max)}>
-                    Change to {result.max}
-                  </button>
-                ) : (
-                  <button type="button" className="link-button" onClick={() => removeItem(product)}>
-                    Remove it
-                  </button>
-                )}
-              </li>
-            ))}
             {errorList.map((field) => (
               <li key={field}>
                 <a href={`#checkout-${field}`}>{errors[field]}</a>

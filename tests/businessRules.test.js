@@ -10,6 +10,7 @@ import {
   getDeliveryFee,
   amountToFreeDelivery,
   checkServiceArea,
+  findCartIssues,
 } from '../src/rules/businessRules.js'
 
 // --- Rule 1: quantity limit (the rule required by Task 6.2) -----------------
@@ -42,6 +43,34 @@ test('Rule 1: stock caps the limit when fewer than 5 are left', () => {
 test('Rule 1: out-of-stock and zero quantities are rejected', () => {
   assert.equal(checkQuantity(soldOut, 1).ok, false)
   assert.equal(checkQuantity(wellStocked, 0).ok, false)
+})
+
+// --- Rule 1 applied to a restored (saved) cart -------------------------------
+test('Rule 1: a saved cart within current stock has no issues', () => {
+  assert.deepEqual(findCartIssues([{ id: 'a', quantity: 5 }], [wellStocked]), [])
+})
+
+test('Rule 1: a saved quantity above new stock is lowered to the stock', () => {
+  const [issue] = findCartIssues([{ id: 'b', quantity: 4 }], [lowStock])
+  assert.equal(issue.kind, 'over-stock')
+  assert.equal(issue.fixQuantity, 2)
+})
+
+test('Rule 1: sold-out and discontinued saved items are flagged for removal', () => {
+  const issues = findCartIssues(
+    [
+      { id: 'c', quantity: 1 },
+      { id: 'gone', quantity: 2 },
+    ],
+    [soldOut],
+  )
+  assert.deepEqual(
+    issues.map(({ kind, fixQuantity }) => ({ kind, fixQuantity })),
+    [
+      { kind: 'sold-out', fixQuantity: 0 },
+      { kind: 'discontinued', fixQuantity: 0 },
+    ],
+  )
 })
 
 // --- Rule 2: age eligibility ----------------------------------------------
