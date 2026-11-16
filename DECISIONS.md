@@ -3,7 +3,7 @@
 Reference site: https://packitgourmet.com (investigated 16 Nov 2026 at 1280 px and 390 px).
 Full observations: `docs/investigation.md`.
 
-Code locations and evidence are completed as each feature is built.
+The accompanying report includes the reference and application screenshots.
 
 ## D01 — Product cards with fixed information areas (information hierarchy)
 
@@ -13,7 +13,7 @@ Code locations and evidence are completed as each feature is built.
 - **Reason:** Shoppers compare name, size, price and availability without opening each product.
 - **Tradeoff:** Cards are taller, so fewer fit on screen.
 - **Code location:** `src/components/ProductCard.jsx` (`ProductCard`), `src/components/StockStatus.jsx` (`getStockLabel`), `src/styles/shop.css` (`.product-card__body`, `.product-card__footer`, phone layout under 560 px)
-- **Evidence:** Before: `Evidence/P1-listing-1280-price-collides-with-out-of-stock.png`, `P1-card-closeup-name-truncated-price-collision.png`. After: `Evidence/app/A1-P1-P2-cards-and-in-place-stepper.jpg`. Steps: open `/shop?category=Trail%20meals` at 1280 px and 390 px; price and stock never share a line and full names wrap.
+- **Evidence:** Before: `Evidence/P1-listing-1280-price-collides-with-out-of-stock.png`, `P1-card-closeup-name-truncated-price-collision.png`. After: `Evidence/app/A1-P1-P2-cards-and-in-place-stepper.jpg`. Steps: open `/shop?category=Trail%20meals` at 1280 px and 390 px; price and stock remain readable side by side or wrap, and full names wrap.
 
 ## D02 — Build the cart in place with shared state (interaction / state)
 
@@ -34,3 +34,4 @@ Code locations and evidence are completed as each feature is built.
 - **Tradeoff:** Product data must follow a stricter structure.
 - **Code location:** `src/pages/ProductPage.jsx` (`buildSections`), `src/components/PreparationInfo.jsx` (`PrepSummary`, `PrepSteps`), `src/data/products.js` (`preparation` field)
 - **Evidence:** Before: `Evidence/P3-instructions-tab-empty-with-product-name-and-url.png`, `P3-cheddar-prep-info-sits-in-about-tab.png`. After: `Evidence/app/A2-P3-prep-facts-beside-price.jpg`, `A3-P3-missing-instructions-notice.jpg`. Steps: open `/products/tb-chicken-biryani` (facts beside the price), `/products/tb-egg-wrap-kit` (notice instead of an empty section) and `/products/tb-gas-canister` (no Preparation section).
+

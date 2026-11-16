@@ -6,12 +6,12 @@ Built for CS4032 Web Programming, Assignment 02. All orders are **simulated**: n
 
 ## Student details
 
-- Name: TODO
-- Roll number: TODO
-- Section: TODO
-- GitHub repository: TODO
-- Live deployment: TODO
-- Final commit hash: TODO
+- Name: Musawir Altaf
+- Roll number: 24I2134
+- Section: A
+- GitHub repository: https://github.com/musawiraltaf/trailbite
+- Live deployment: pending publication
+- Submission revision: see the accompanying PDF report.
 
 ## Commands
 
@@ -65,7 +65,7 @@ Rule logic lives in `src/rules/businessRules.js`. Tests are in `tests/businessRu
 
 ```
 src/
-  app/         App shell, routes, shared state (later milestones)
+  app/         App shell, routes, shared state
   components/  Reusable UI components
   pages/       Route-level pages
   data/        Local product data and business profile
@@ -141,3 +141,4 @@ The app is a static Vite build. On Vercel: import the GitHub repository, keep th
 - Icons: lucide-react (ISC licence).
 - Motion: one hero entrance and one scroll moment on the landing page, plus small hover/press feedback; everything respects `prefers-reduced-motion`.
 - Trail figures are approximate and labelled as such on the site.
+
