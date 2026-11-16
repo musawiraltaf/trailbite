@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { CircleCheck, X } from 'lucide-react'
 import { useCart } from '../app/CartContext.jsx'
 import { formatPrice } from '../lib/format.js'
 
@@ -24,6 +25,7 @@ export default function CartToast() {
     <div className="cart-toast-region" role="status" aria-live="polite">
       {notice && (
         <div className="cart-toast" key={notice.id}>
+          <CircleCheck size={20} className="icon" aria-hidden="true" />
           <p>
             {notice.text}{' '}
             <span className="cart-toast__total">
@@ -36,7 +38,7 @@ export default function CartToast() {
             </Link>
           )}
           <button type="button" className="cart-toast__close" onClick={dismissNotice} aria-label="Dismiss message">
-            ✕
+            <X size={18} aria-hidden="true" />
           </button>
         </div>
       )}

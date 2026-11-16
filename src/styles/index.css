@@ -1,0 +1,10 @@
+/* Style entry point: imported once in main.jsx.
+   Order matters: tokens first, then base elements, then layout and components,
+   then page-specific files. */
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './shop.css';
+@import './product.css';
+@import './cart.css';

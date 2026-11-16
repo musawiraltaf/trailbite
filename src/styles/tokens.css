@@ -1,0 +1,71 @@
+/* ==========================================================================
+   Design tokens — TrailBite "night on the ridge" dark theme.
+   Deep forest greens instead of flat black, warm parchment text instead of
+   pure white, and one ember/amber accent for primary actions.
+   Every text colour below is checked against the surfaces it sits on
+   (WCAG AA: 4.5:1 body text, 3:1 large text and UI parts).
+   ========================================================================== */
+:root {
+  color-scheme: dark;
+
+  /* Grounds, from deepest to most raised */
+  --color-bg: #0d1512;
+  --color-bg-raised: #111c18;
+  --color-surface: #16231e;
+  --color-surface-2: #1d2d26;
+  --color-surface-3: #253830;
+  --color-border: #2b3e35;
+  --color-border-strong: #3e5649;
+  --color-input-border: #6b8576; /* 3:1+ against every surface, for form controls */
+
+  /* Text */
+  --color-ink: #efe8d8; /* parchment */
+  --color-ink-muted: #b0baae;
+  --color-ink-faint: #8e9a8f;
+
+  /* Brand and actions */
+  --color-accent: #e8a64c; /* ember: primary buttons, prices, highlights */
+  --color-accent-hover: #f3bb6b;
+  --color-on-accent: #1b1208; /* text on ember buttons */
+  --color-moss: #93c9a0; /* secondary highlight, links */
+  --color-moss-deep: #2f5d46;
+
+  /* States: always paired with an icon and words, never colour alone */
+  --color-success: #8fd3a0;
+  --color-warning: #f3c06b;
+  --color-danger: #ff9486;
+  --color-danger-bg: #2c1714;
+  --color-warning-bg: #2a2212;
+  --color-success-bg: #13281c;
+  --color-focus: #9ccbff;
+
+  /* Type */
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Manrope Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Spacing scale (4 px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --space-9: 112px;
+
+  --radius: 16px;
+  --radius-small: 10px;
+  --radius-pill: 999px;
+  --shadow: 0 2px 4px rgb(0 0 0 / 0.25), 0 12px 32px rgb(0 0 0 / 0.3);
+  --shadow-lift: 0 6px 12px rgb(0 0 0 / 0.3), 0 20px 44px rgb(0 0 0 / 0.38);
+  --content-width: 1200px;
+  --tap-size: 44px; /* minimum touch target (fix for Problem 2) */
+  --header-height: 68px;
+
+  /* Motion (curves from Emil Kowalski's animation guidance) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-fast: 140ms;
+  --duration-ui: 220ms;
+}

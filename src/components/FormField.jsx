@@ -1,3 +1,5 @@
+import { TriangleAlert } from 'lucide-react'
+
 // Label + input + hint + error, wired together for screen readers:
 // the label uses htmlFor, and aria-describedby points at the hint and error text.
 export default function FormField({ id, label, hint, error, children }) {
@@ -17,8 +19,8 @@ export default function FormField({ id, label, hint, error, children }) {
       {children({ id, 'aria-describedby': describedBy, 'aria-invalid': error ? true : undefined })}
       {error && (
         <p id={errorId} className="field__error">
-          <span aria-hidden="true">⚠ </span>
-          {error}
+          <TriangleAlert size={16} className="icon" aria-hidden="true" />
+          <span>{error}</span>
         </p>
       )}
     </div>

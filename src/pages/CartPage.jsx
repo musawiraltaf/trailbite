@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
+import { ShieldCheck, ShoppingBag } from 'lucide-react'
 import { useCart } from '../app/CartContext.jsx'
 import { useCatalogue } from '../app/CatalogueContext.jsx'
 import CatalogueStatus from '../components/CatalogueStatus.jsx'
 import OrderSummary from '../components/OrderSummary.jsx'
-import ProductImage from '../components/ProductImage.jsx'
+import ProductArt from '../components/ProductArt.jsx'
 import QuantityStepper from '../components/QuantityStepper.jsx'
 import { formatPrice } from '../lib/format.js'
 
@@ -18,6 +19,7 @@ export default function CartPage() {
   if (lines.length === 0) {
     return (
       <section className="state-panel">
+        <ShoppingBag size={36} className="state-panel__icon" aria-hidden="true" />
         <h1>Your cart is empty</h1>
         <p>Add meals, snacks and fuel for your next trip. Items you add stay here even if you close the page.</p>
         <Link to="/shop" className="button button--primary">
@@ -35,7 +37,7 @@ export default function CartPage() {
         <ul className="cart-lines">
           {lines.map(({ product, quantity }) => (
             <li key={product.id} className="cart-line">
-              <ProductImage product={product} size="thumb" />
+              <ProductArt product={product} size="thumb" />
 
               <div className="cart-line__info">
                 <h2 className="cart-line__name">
@@ -44,7 +46,12 @@ export default function CartPage() {
                 <p className="product-card__meta">
                   {product.packSize} · {formatPrice(product.price)} each
                 </p>
-                {product.ageRestricted && <p className="badge-warning">18+ item: date of birth needed at checkout</p>}
+                {product.ageRestricted && (
+                  <p className="badge-warning">
+                    <ShieldCheck size={15} aria-hidden="true" />
+                    18+ item: date of birth needed at checkout
+                  </p>
+                )}
               </div>
 
               <div className="cart-line__qty">

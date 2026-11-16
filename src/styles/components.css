@@ -1,0 +1,554 @@
+/* Shared components used on several pages. */
+
+/* Buttons ----------------------------------------------------------------
+   One primary (ember fill) and one secondary (outline) style across the site.
+   Hover steps the colour; :active presses (scale 0.97) so every click answers. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.button--primary {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.button--primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.button--secondary {
+  background: transparent;
+  border-color: var(--color-border-strong);
+  color: var(--color-ink);
+}
+
+.button--secondary:hover {
+  border-color: var(--color-ink-muted);
+  background: var(--color-surface);
+}
+
+.button--large {
+  min-height: 54px;
+  padding: 0 var(--space-6);
+  font-size: 1.05rem;
+}
+
+.button--block {
+  width: 100%;
+}
+
+/* Disabled must LOOK disabled (unlike the reference site's full-colour button) */
+.button:disabled {
+  background: var(--color-surface-2);
+  border-color: var(--color-border);
+  color: var(--color-ink-faint);
+  cursor: not-allowed;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap-size);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--color-danger);
+  font: inherit;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* State panels: loading, error, empty, not found ------------------------- */
+.state-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-7) var(--space-5);
+  text-align: center;
+  max-width: 580px;
+  margin: var(--space-6) auto;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+}
+
+.state-panel p {
+  color: var(--color-ink-muted);
+}
+
+.state-panel--error {
+  border-color: var(--color-danger);
+}
+
+.state-panel--error h2 {
+  color: var(--color-danger);
+}
+
+.state-panel__icon {
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border-strong);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Notices (tinted panel with an icon; no thick coloured side border) */
+.notice {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-small);
+  background: var(--color-warning-bg);
+  color: var(--color-ink);
+}
+
+.notice .icon {
+  color: var(--color-warning);
+  margin-top: 3px;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice--info {
+  background: var(--color-surface-2);
+}
+
+.notice--info .icon {
+  color: var(--color-moss);
+}
+
+/* Tags and stock ---------------------------------------------------------- */
+.tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-3);
+  color: var(--color-ink-muted);
+  text-transform: capitalize;
+}
+
+.stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.stock--in {
+  color: var(--color-success);
+}
+
+.stock--low {
+  color: var(--color-warning);
+}
+
+.stock--out {
+  color: var(--color-danger);
+}
+
+/* Form fields ------------------------------------------------------------- */
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field label {
+  font-weight: 650;
+  font-size: 0.92rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  font: inherit;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  border: 1.5px solid var(--color-input-border);
+  border-radius: var(--radius-small);
+  background: var(--color-bg-raised);
+  color: var(--color-ink);
+  width: 100%;
+  transition: border-color var(--duration-fast) ease;
+}
+
+.field textarea {
+  padding: var(--space-2) var(--space-3);
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--color-ink-faint);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: var(--color-ink-muted);
+}
+
+.field input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(0.85);
+}
+
+.field__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+}
+
+.field__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.field__error .icon {
+  margin-top: 2px;
+}
+
+.field--invalid input,
+.field--invalid select,
+.field--invalid textarea {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-size);
+}
+
+.field--checkbox input {
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  accent-color: var(--color-accent);
+}
+
+/* Quantity stepper (fix for Problem 2: 44 px targets) --------------------- */
+.stepper__controls {
+  display: grid;
+  grid-template-columns: var(--tap-size) 1fr var(--tap-size);
+  align-items: center;
+  border: 1.5px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--color-bg-raised);
+}
+
+.stepper__button {
+  display: grid;
+  place-items: center;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  border: 0;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) ease,
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.stepper__button:hover {
+  background: var(--color-accent-hover);
+}
+
+.stepper__button:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.stepper__button:disabled {
+  background: var(--color-surface-2);
+  color: var(--color-ink-faint);
+  cursor: not-allowed;
+}
+
+.stepper__input {
+  width: 100%;
+  min-width: 0;
+  height: var(--tap-size);
+  border: 0;
+  text-align: center;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  background: transparent;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.stepper__input::-webkit-outer-spin-button,
+.stepper__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper__input:focus-visible {
+  outline-offset: -4px;
+}
+
+.stepper__hint {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+  text-align: center;
+}
+
+.stepper__hint--error {
+  color: var(--color-danger);
+  font-weight: 700;
+}
+
+.stepper--large .stepper__controls {
+  max-width: 240px;
+}
+
+.stepper--large .stepper__hint {
+  text-align: left;
+}
+
+/* Header cart count; "bumps" briefly when the count changes */
+.cart-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-badge--empty {
+  background: var(--color-surface-3);
+  color: var(--color-ink-muted);
+}
+
+.cart-badge--bump {
+  animation: badge-bump 320ms var(--ease-out);
+}
+
+@keyframes badge-bump {
+  40% {
+    transform: scale(1.25);
+  }
+}
+
+/* Cart toast: slides up from the bottom and leaves the same way */
+.cart-toast-region {
+  position: fixed;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cart-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  width: min(100%, 560px);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border-strong);
+  color: var(--color-ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lift);
+  transition:
+    transform var(--duration-ui) var(--ease-out),
+    opacity var(--duration-ui) var(--ease-out);
+}
+
+@starting-style {
+  .cart-toast {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+.cart-toast > .icon {
+  color: var(--color-success);
+}
+
+.cart-toast p {
+  margin: 0;
+  flex: 1 1 220px;
+}
+
+.cart-toast__total {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--color-ink-muted);
+}
+
+.cart-toast__link {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.cart-toast__close {
+  display: grid;
+  place-items: center;
+  width: var(--tap-size);
+  height: var(--tap-size);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+}
+
+.cart-toast__close:hover {
+  background: var(--color-surface-2);
+  color: var(--color-ink);
+}
+
+/* Breadcrumb -------------------------------------------------------------- */
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0 0 var(--space-5);
+  font-size: 0.9rem;
+}
+
+.breadcrumb li + li::before {
+  content: '/';
+  margin-right: var(--space-2);
+  color: var(--color-ink-faint);
+}
+
+.breadcrumb a {
+  color: var(--color-ink-muted);
+}
+
+.breadcrumb [aria-current='page'] {
+  color: var(--color-ink);
+}
+
+/* Product art (authored SVG illustration) ---------------------------------- */
+.product-art {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--art-ground, var(--color-surface-2));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.product-art svg {
+  width: 62%;
+  height: 82%;
+  transition: transform 400ms var(--ease-out);
+}
+
+.product-art--detail {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  max-width: 560px;
+}
+
+.product-art--thumb {
+  width: 72px;
+  height: 72px;
+  aspect-ratio: 1;
+  border-radius: var(--radius-small);
+}
+
+.product-art--thumb svg {
+  width: 74%;
+}
+
+/* Reduced motion: keep fades, drop movement --------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .spinner {
+    animation-duration: 1.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}

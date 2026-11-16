@@ -1,7 +1,8 @@
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { ArrowLeft, Info, PackageCheck, ShieldCheck, Truck } from 'lucide-react'
 import { useCatalogue } from '../app/CatalogueContext.jsx'
 import CatalogueStatus from '../components/CatalogueStatus.jsx'
-import ProductImage from '../components/ProductImage.jsx'
+import ProductArt from '../components/ProductArt.jsx'
 import StockStatus from '../components/StockStatus.jsx'
 import AddToCart from '../components/AddToCart.jsx'
 import { PrepSteps, PrepSummary } from '../components/PreparationInfo.jsx'
@@ -27,7 +28,7 @@ export default function ProductPage() {
   const product = products.find((item) => item.id === id)
   if (!product) return <ProductNotFound id={id} />
 
-  const { name, category, packSize, servings, price, stock, preparation, ageRestricted } = product
+  const { name, category, packSize, servings, calories, price, stock, preparation, ageRestricted } = product
   const maxQuantity = getMaxQuantity(product)
   const sections = buildSections(product)
 
@@ -46,7 +47,7 @@ export default function ProductPage() {
       </nav>
 
       <div className="product-detail__top">
-        <ProductImage product={product} size="detail" />
+        <ProductArt product={product} size="detail" />
 
         <div className="product-detail__summary">
           <p className="product-card__category">{category}</p>
@@ -54,6 +55,7 @@ export default function ProductPage() {
           <p className="product-card__meta">
             {packSize}
             {servings ? ` · ${servings} ${servings === 1 ? 'serving' : 'servings'}` : ''}
+            {calories ? ` · ${calories} kcal` : ''}
           </p>
 
           <p className="product-detail__price">{formatPrice(price)}</p>
@@ -63,18 +65,27 @@ export default function ProductPage() {
           <ul className="conditions">
             {maxQuantity > 0 && (
               <li>
-                Order up to <strong>{maxQuantity}</strong>
-                {maxQuantity < MAX_PER_PRODUCT ? ' (limited by stock)' : ' per order'}.
+                <PackageCheck size={18} className="icon" aria-hidden="true" />
+                <span>
+                  Order up to <strong>{maxQuantity}</strong>
+                  {maxQuantity < MAX_PER_PRODUCT ? ' (limited by stock)' : ' per order'}.
+                </span>
               </li>
             )}
             {ageRestricted && (
               <li className="conditions__warning">
-                <strong>{MIN_AGE}+ only.</strong> You will be asked for your date of birth at checkout.
+                <ShieldCheck size={18} className="icon" aria-hidden="true" />
+                <span>
+                  <strong>{MIN_AGE}+ only.</strong> You will be asked for your date of birth at checkout.
+                </span>
               </li>
             )}
             <li>
-              Delivery in {SERVICE_CITIES.join(' and ')}: {formatPrice(DELIVERY_FEE)}, free over{' '}
-              {formatPrice(FREE_DELIVERY_THRESHOLD)}.
+              <Truck size={18} className="icon" aria-hidden="true" />
+              <span>
+                Delivery in {SERVICE_CITIES.join(' and ')}: {formatPrice(DELIVERY_FEE)}, free from{' '}
+                {formatPrice(FREE_DELIVERY_THRESHOLD)}.
+              </span>
             </li>
           </ul>
 
@@ -86,8 +97,13 @@ export default function ProductPage() {
 
           <div className="button-row">
             {/* Back keeps the shop's filters; a direct visit (no history) goes to the shop. */}
-            <button type="button" className="button button--secondary" onClick={() => (location.key === 'default' ? navigate('/shop') : navigate(-1))}>
-              ← Back
+            <button
+              type="button"
+              className="button button--secondary"
+              onClick={() => (location.key === 'default' ? navigate('/shop') : navigate(-1))}
+            >
+              <ArrowLeft size={18} aria-hidden="true" />
+              Back
             </button>
           </div>
         </div>
@@ -128,9 +144,10 @@ function buildSections(product) {
       content: description ? (
         <p>{description}</p>
       ) : (
-        <p className="fallback-note">
-          The supplier has not sent a full description yet. Pack size, price and preparation are listed on this page.
-        </p>
+        <div className="notice notice--info">
+          <Info size={18} className="icon" aria-hidden="true" />
+          <p>The supplier has not sent a full description yet. Pack size, price and preparation are listed on this page.</p>
+        </div>
       ),
     },
   ]
@@ -144,10 +161,10 @@ function buildSections(product) {
       id: 'preparation',
       title: 'Preparation',
       content: (
-        <p className="fallback-note">
-          Preparation instructions for this item are not available yet. Most of our breakfasts need about 200 ml of
-          hot water and 5 minutes.
-        </p>
+        <div className="notice">
+          <Info size={18} className="icon" aria-hidden="true" />
+          <p>Preparation instructions for this item are not available yet. Most of our breakfasts need about 200 ml of hot water and 5 minutes.</p>
+        </div>
       ),
     })
   }

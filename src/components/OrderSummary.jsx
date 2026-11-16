@@ -1,3 +1,4 @@
+import { CircleCheck } from 'lucide-react'
 import { formatPrice } from '../lib/format.js'
 import { DELIVERY_FEE, FREE_DELIVERY_THRESHOLD } from '../rules/businessRules.js'
 
@@ -40,7 +41,10 @@ export default function OrderSummary({ summary, children }) {
               </>
             ) : (
               <>
-                <span aria-hidden="true">✓ </span>You get <strong>free delivery</strong>.
+                <CircleCheck size={16} className="icon" aria-hidden="true" />
+                <span>
+                  You get <strong>free delivery</strong>.
+                </span>
               </>
             )}
           </p>
@@ -52,7 +56,8 @@ export default function OrderSummary({ summary, children }) {
             aria-valuemax={100}
             aria-valuenow={progress}
           >
-            <span style={{ width: `${progress}%` }} />
+            {/* scaleX instead of width so the bar animates on the compositor */}
+            <span style={{ transform: `scaleX(${progress / 100})` }} />
           </div>
         </div>
       )}

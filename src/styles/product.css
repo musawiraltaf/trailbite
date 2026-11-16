@@ -1,0 +1,212 @@
+/* Product details page (fix for Problem 3: sections only when they have content). */
+
+.product-detail__top {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (min-width: 860px) {
+  .product-detail__top {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: start;
+  }
+}
+
+@media (max-width: 859px) {
+  .product-art--detail {
+    aspect-ratio: 16 / 10;
+    max-width: none;
+  }
+}
+
+.product-detail__summary {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+}
+
+.product-detail__summary h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-detail__price {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.conditions {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.conditions li {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  color: var(--color-ink-muted);
+}
+
+.conditions li .icon {
+  color: var(--color-moss);
+  margin-top: 3px;
+}
+
+.conditions strong {
+  color: var(--color-ink);
+}
+
+.conditions__warning .icon {
+  color: var(--color-warning) !important;
+}
+
+/* Quick preparation facts beside the price */
+.prep-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.prep-summary > div {
+  display: grid;
+  gap: 2px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-small);
+  padding: var(--space-3);
+}
+
+.prep-summary dt {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-moss);
+}
+
+.prep-summary dd {
+  margin: 0;
+  font-weight: 750;
+}
+
+.product-detail__buy {
+  max-width: 340px;
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* In-page links to the sections that exist */
+.section-nav {
+  margin: var(--space-7) 0 0;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: var(--header-height);
+  background: rgb(13 21 18 / 0.9);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+}
+
+.section-nav ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+}
+
+.section-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-size);
+  padding: 0 var(--space-4);
+  font-weight: 650;
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition:
+    color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.section-nav a:hover {
+  color: var(--color-ink);
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+.detail-section {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-border);
+  max-width: 72ch;
+}
+
+.detail-section p {
+  color: var(--color-ink-muted);
+}
+
+.prep-steps {
+  list-style: none;
+  counter-reset: step;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.prep-steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  color: var(--color-ink-muted);
+}
+
+.prep-steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface-3);
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+/* "Good for these trails" links on the product page */
+.trail-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+}
+
+.trail-chips a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-2);
+  color: var(--color-ink);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.trail-chips a:hover {
+  background: var(--color-surface-3);
+}

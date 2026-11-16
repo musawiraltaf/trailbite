@@ -1,0 +1,182 @@
+/* Page frame: header, main area, footer. */
+.page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-8);
+  min-height: 70vh;
+}
+
+/* The landing page runs full-bleed; its sections set their own widths. */
+.page--bleed {
+  max-width: none;
+  padding: 0;
+}
+
+.page:focus {
+  outline: none; /* main receives focus on route change; the heading inside is what users see */
+}
+
+.section {
+  margin-top: var(--space-8);
+}
+
+.wrap {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* Header ----------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgb(13 21 18 / 0.82);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--header-height);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.brand__mark {
+  color: var(--color-accent);
+}
+
+.brand__accent {
+  color: var(--color-accent);
+}
+
+.main-nav {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap-size);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 0.95rem;
+  transition:
+    color var(--duration-fast) ease,
+    background-color var(--duration-fast) ease;
+}
+
+.main-nav a:hover {
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.main-nav a.active {
+  color: var(--color-ink);
+  background: var(--color-surface-2);
+}
+
+/* Mobile: hide nav words that have an icon, keep tap targets */
+@media (max-width: 559px) {
+  .main-nav a {
+    padding: 0 var(--space-2);
+    font-size: 0.9rem;
+  }
+
+  .main-nav .nav-label--optional {
+    display: none;
+  }
+}
+
+/* Footer ----------------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+}
+
+.site-footer__inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-4);
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 760px) {
+  .site-footer__inner {
+    grid-template-columns: 1.4fr 1fr 1fr;
+  }
+}
+
+.site-footer__brand {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 650;
+  margin-bottom: var(--space-2);
+}
+
+.site-footer h2 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+
+.site-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.site-footer a {
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+}
+
+.site-footer a:hover {
+  color: var(--color-ink);
+  text-decoration: underline;
+}
+
+.site-footer p {
+  color: var(--color-ink-muted);
+}
+
+.site-footer__note {
+  font-size: 0.85rem;
+  color: var(--color-ink-faint);
+  margin: 0;
+}

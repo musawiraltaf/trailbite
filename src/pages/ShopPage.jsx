@@ -5,6 +5,7 @@ import CatalogueStatus from '../components/CatalogueStatus.jsx'
 import ProductGrid from '../components/ProductGrid.jsx'
 import ShopFilters from '../components/ShopFilters.jsx'
 import { filterProducts, sortProducts } from '../lib/catalogue.js'
+import { CATEGORIES } from '../data/products.js'
 
 // The filters live in the URL (?q=&category=&diet=&stock=&sort=) instead of
 // component state. Benefits: Back/Forward restore earlier filters, returning
@@ -51,7 +52,31 @@ export default function ShopPage() {
 
   return (
     <section aria-labelledby="shop-heading">
-      <h1 id="shop-heading">{category || 'Shop trail food'}</h1>
+      <header className="page-heading">
+        <h1 id="shop-heading">{category || 'Trail food & kit'}</h1>
+        <p>
+          Meals that need only boiling water, snacks that survive a rucksack, and the small kit to cook them. Add items
+          straight from the list; your cart follows you to every page.
+        </p>
+      </header>
+
+      {/* Quick category links; the same filter is also in the Category select below */}
+      <nav aria-label="Categories">
+        <ul className="category-pills">
+          <li>
+            <Link to="/shop" aria-current={!category ? 'true' : undefined}>
+              All
+            </Link>
+          </li>
+          {CATEGORIES.map((name) => (
+            <li key={name}>
+              <Link to={`/shop?category=${encodeURIComponent(name)}`} aria-current={category === name ? 'true' : undefined}>
+                {name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
       <ShopFilters values={filters} onChange={updateParam} onClear={clearFilters} />
 

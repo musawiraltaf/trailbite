@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Minus, Plus, Trash2 } from 'lucide-react'
 import { getMaxQuantity } from '../rules/businessRules.js'
 
 // − [qty] + control used on product cards, the details page and the cart (Problem 2).
@@ -49,7 +50,11 @@ export default function QuantityStepper({ product, quantity, onChange, size = 'n
           onClick={() => request(quantity - 1)}
           aria-label={quantity === 1 ? `Remove ${product.name} from cart` : `Decrease quantity of ${product.name}`}
         >
-          {quantity === 1 ? '🗑' : '−'}
+          {quantity === 1 ? (
+            <Trash2 size={18} aria-hidden="true" />
+          ) : (
+            <Minus size={18} aria-hidden="true" />
+          )}
         </button>
 
         <input
@@ -78,7 +83,7 @@ export default function QuantityStepper({ product, quantity, onChange, size = 'n
           disabled={atLimit}
           aria-label={`Increase quantity of ${product.name}`}
         >
-          +
+          <Plus size={18} aria-hidden="true" />
         </button>
       </div>
 
