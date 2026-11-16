@@ -19,11 +19,11 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 |---|---|---|
 | Name, offering, audience, operating area, main task, goal | `src/data/business.js`, README | ✅ |
 | ≥10 products with stable IDs | `src/data/products.js` (15) | ✅ |
-| Rule 1 availability (numerical limit) | `src/rules/businessRules.js` → `checkQuantity` | ✅ logic · ⬜ UI (M3) |
-| Rule 2 eligibility | `checkAgeEligibility` | ✅ logic · ⬜ UI (M3) |
-| Rule 3 pricing/fulfilment | `getDeliveryFee`, `checkServiceArea` | ✅ logic · ⬜ UI (M3) |
+| Rule 1 availability (numerical limit) | `checkQuantity` → `QuantityStepper`, `findStockProblems` | ✅ |
+| Rule 2 eligibility | `checkAgeEligibility` → checkout date of birth | ✅ |
+| Rule 3 pricing/fulfilment | `getDeliveryFee` → `OrderSummary`; `checkServiceArea` → checkout city | ✅ |
 | Each rule: exact condition, where the user is told, behaviour met/broken, boundary case | README table + UI messages | 🟡 |
-| Rules change app behaviour and block invalid completion | Cart + checkout (M3) | ⬜ |
+| Rules change app behaviour and block invalid completion | Stepper, cart, checkout | ✅ |
 
 ## Task 3 — DECISIONS.md
 
@@ -36,22 +36,22 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 
 | ID | Requirement | Where | Status |
 |---|---|---|---|
-| FR01 | ≥3 meaningful routes, Back/Forward work | `src/app/App.jsx` (/, /shop, /products/:id, /cart, /checkout, /confirmation) | 🟡 M2/M3 |
+| FR01 | ≥3 meaningful routes, Back/Forward work | `src/app/App.jsx` (/, /shop, /products/:id, /cart, /checkout, /confirmation) | ✅ |
 | FR02 | Parameterised route; invalid ID shows useful feedback | `src/pages/ProductPage.jsx` (`ProductNotFound`) | ✅ |
 | FR03 | ≥10 local records with stable IDs | `src/data/products.js` | ✅ |
 | FR04 | Search relevant text fields | `src/lib/catalogue.js` (`matchesSearch`), `ShopPage` | ✅ |
 | FR05 | ≥1 filter + ≥1 sort, both work with search | `ShopFilters`, `ShopPage` (category, diet, in-stock; 4 sorts) | ✅ |
 | FR06 | Details: price, conditions, availability | `ProductPage` | ✅ (add-to-cart in M3) |
-| FR07 | Add/remove, change quantities | Cart context, `QuantityStepper` | ⬜ M3 |
-| FR08 | Shared state across listing, details, cart, summary | Cart context | ⬜ M3 |
-| FR09 | Controlled form, ≥3 fields in main journey | `CheckoutPage` | ⬜ M3 |
-| FR10 | ≥3 validation rules, specific messages, valid input kept | `CheckoutPage`, `src/lib/validation.js` | ⬜ M3 |
-| FR11 | Calculated summary (count, subtotal, delivery, total) | `OrderSummary` | ⬜ M3 |
-| FR12 | All three rules work and block invalid completion | Cart + checkout | ⬜ M3 |
-| FR13 | localStorage save and restore | `src/lib/storage.js` | ⬜ M3 |
+| FR07 | Add/remove, change quantities | `CartContext`, `AddToCart`, `QuantityStepper`, `CartPage` | ✅ |
+| FR08 | Shared state across listing, details, cart, summary | `CartContext` | ✅ |
+| FR09 | Controlled form, ≥3 fields in main journey | `CheckoutPage` (7 fields) | ✅ |
+| FR10 | ≥3 validation rules, specific messages, valid input kept | `src/lib/validation.js` (`validateCheckout`), `FormField` | ✅ |
+| FR11 | Calculated summary (count, subtotal, delivery, total) | `src/lib/orderSummary.js`, `OrderSummary` | ✅ |
+| FR12 | All three rules work and block invalid completion | `QuantityStepper`, `validateCheckout`, `findStockProblems` | ✅ |
+| FR13 | localStorage save and restore | `src/lib/storage.js`, `CartContext` | ✅ |
 | FR14 | Async mock loader with loading, failure, retry | `src/lib/mockLoader.js`, `CatalogueContext`, `CatalogueStatus` | 🟡 works; demo toggle in M5 |
 | FR15 | Empty dataset vs no matches, with guidance | `ShopPage` (`NoMatches`) | 🟡 no-match done; empty-dataset demo in M5 |
-| FR16 | Clear confirmation | `ConfirmationPage` | ⬜ M3 |
+| FR16 | Clear confirmation | `ConfirmationPage` (survives refresh via sessionStorage) | ✅ |
 | FR17 | Works at 390 px and 1280 px, and by keyboard | CSS + manual check | ⬜ M4 |
 | FR18 | All three problems addressed in the app | P1 `ProductCard`, P2 stepper + cart, P3 `ProductPage` sections | ⬜ |
 | FR19 | Deployed: assets, navigation, nested-route refresh | Vercel + `vercel.json` | ⬜ M5 |
@@ -63,20 +63,20 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | Components and modules (imports/exports) | `src/components`, `src/pages` | 🟡 |
 | JSX, suitable HTML elements | All components | 🟡 |
 | Props | `ProductCard`, `StockStatus`, `ProductGrid` | ✅ |
-| Callback props | `ShopFilters onChange/onClear`; stepper in M3 | 🟡 |
-| Events, preventDefault on form submit | `CheckoutPage` | ⬜ |
-| useState and controlled inputs | `ShopPage` filters, checkout form | ⬜ |
+| Callback props | `ShopFilters onChange/onClear`, `QuantityStepper onChange` | ✅ |
+| Events, preventDefault on form submit | `CheckoutPage handleSubmit` | ✅ |
+| useState and controlled inputs | Checkout form, `QuantityStepper` draft | ✅ |
 | Functional updates | `setAttempt(n => n + 1)`, cart updates | 🟡 |
-| Object updates without mutation | Checkout form state | ⬜ |
-| Array add/remove/update without mutation | Cart reducer | ⬜ |
+| Object updates without mutation | `setForm(prev => ({ ...prev, [name]: value }))` | ✅ |
+| Array add/remove/update without mutation | `CartContext setQuantity` (map/filter/spread) | ✅ |
 | Lists and stable keys | Product grid (`product.id`) | 🟡 |
 | Conditional rendering (availability, validation, loading, error, empty) | Several | 🟡 |
 | Shared state (context) | `CatalogueContext`, cart context | 🟡 |
-| Derived values | `ShopPage` results (`useMemo`); totals in M3 | 🟡 |
+| Derived values | `ShopPage` results, `calculateSummary`, checkout `errors` | ✅ |
 | useEffect with dependencies and cleanup | `CatalogueContext` (AbortController), storage sync | 🟡 |
-| Array methods, spread, destructuring | `catalogue.js` (filter/sort/every), cart in M3 | 🟡 |
+| Array methods, spread, destructuring | `catalogue.js`, `orderSummary.js` (reduce), `CartContext` | ✅ |
 | async/await or .then with failure handling | `CatalogueContext` | ✅ |
-| localStorage read/write | `storage.js` | ⬜ |
+| localStorage read/write | `storage.js` | ✅ |
 | Routes, URL params, links, navigation | `App.jsx`, `useParams`, `useSearchParams`, `useNavigate` | 🟡 |
 | Folders: components, pages, data, assets, styles, mock loader, rules, tests | `src/*`, `tests/` | ✅ |
 | Simulated operations clearly labelled; fictional payment; no personal data stored | Footer, checkout | 🟡 |
@@ -89,7 +89,7 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | Clear primary and secondary actions | ⬜ M4 |
 | Selected, unavailable, error and success states | ⬜ M3/M4 |
 | Semantic HTML, logical headings | 🟡 |
-| Labels tied to inputs | ⬜ |
+| Labels tied to inputs | ✅ `FormField`, `ShopFilters` |
 | Buttons for actions, links for navigation | 🟡 |
 | Keyboard access, visible focus | ⬜ M4 |
 | Alt text for meaningful images | ⬜ |
@@ -104,7 +104,7 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 |---|---|
 | Missing or long content keeps the layout usable, with fallbacks | 🟡 data prepared (long name, missing description/prep) |
 | Empty results or invalid URL: explain + next action | ✅ `NoMatches`, `ProductNotFound`, `NotFoundPage` |
-| Invalid form input: specific feedback, valid input kept | ⬜ M3 |
+| Invalid form input: specific feedback, valid input kept | ✅ checkout |
 | Unavailable or restored selection checked against current data, conflict explained, correctable | ⬜ M5 |
 | Loading failure: clear error + working retry | 🟡 |
 | Documented demo controls for load failure and changed availability | ⬜ M5 |

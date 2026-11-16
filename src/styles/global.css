@@ -1127,3 +1127,163 @@ img {
   display: grid;
   gap: var(--space-1);
 }
+
+/* 12. Checkout and confirmation --------------------------------------------- */
+.simulated-note {
+  padding: var(--space-3) var(--space-4);
+  background: #e8efe6;
+  border-radius: var(--radius-small);
+}
+
+.checkout-layout {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .checkout-layout {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+
+  .checkout-review {
+    position: sticky;
+    top: 88px;
+  }
+}
+
+.checkout-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.checkout-form fieldset {
+  margin: 0;
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.checkout-form legend {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 0 var(--space-2);
+}
+
+.field textarea {
+  padding: var(--space-2) var(--space-3);
+  resize: vertical;
+}
+
+.field__hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+}
+
+.field__error {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-danger);
+}
+
+.field--invalid input,
+.field--invalid select,
+.field--invalid textarea {
+  border: 2px solid var(--color-danger);
+  background: #fff7f6;
+}
+
+.error-summary {
+  border: 3px solid var(--color-danger);
+  border-radius: var(--radius);
+  background: #fff7f6;
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.error-summary h2 {
+  color: var(--color-danger);
+  font-size: 1.15rem;
+}
+
+.error-summary ul {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.error-summary a {
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.error-summary .link-button {
+  min-height: 0;
+  padding: 0;
+}
+
+.checkout-submit {
+  font-size: 1.1rem;
+  min-height: 52px;
+}
+
+.review-heading {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-top: var(--space-4);
+}
+
+.review-lines {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.review-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-size: 0.95rem;
+}
+
+.confirmation {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.confirmation__banner {
+  text-align: center;
+  background: var(--color-surface);
+  border: 2px solid var(--color-success);
+  border-radius: var(--radius);
+  padding: var(--space-6) var(--space-5);
+}
+
+.confirmation__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-success);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.confirmation__details {
+  margin-top: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+}

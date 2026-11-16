@@ -22,7 +22,7 @@ Code locations and evidence are completed as each feature is built.
 - **Alternative:** Keep navigation to the cart but show a "Continue shopping" popup.
 - **Reason:** A trip order usually has several items, and customers keep their place in the listing.
 - **Tradeoff:** Shared state and persistence add complexity; customers may forget to review the cart, so a cart count and subtotal stay visible.
-- **Code location:** TODO (milestone 3)
+- **Code location:** `src/app/CartContext.jsx` (`CartProvider`, `setQuantity`), `src/components/AddToCart.jsx`, `src/components/QuantityStepper.jsx`, `src/components/CartToast.jsx`, `src/pages/CartPage.jsx`
 - **Evidence:** TODO
 
 ## D03 — Only show product sections that have content (content / findability)

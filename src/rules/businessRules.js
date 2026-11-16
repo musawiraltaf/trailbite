@@ -82,7 +82,9 @@ export function checkAgeEligibility(items, dateOfBirth, onDate) {
     return {
       ok: false,
       restricted,
-      message: `You must be ${MIN_AGE} or older to buy ${restricted.map((item) => item.name).join(', ')}. Remove them to continue.`,
+      message: `You must be ${MIN_AGE} or older to buy ${restricted.map((item) => item.name).join(', ')}. Remove ${
+        restricted.length === 1 ? 'it' : 'them'
+      } to continue.`,
     }
   }
   return { ok: true, restricted }
