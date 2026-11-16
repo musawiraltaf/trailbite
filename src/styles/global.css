@@ -401,3 +401,169 @@ img {
   margin: 0;
   color: var(--color-ink-muted);
 }
+
+/* 7. Product grid and cards (fix for Problem 1) ---------------------------- */
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  /* 1 column on phones, up to 4 on desktop, never narrower than 240 px */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.product-grid > li {
+  display: flex; /* lets every card stretch to the row's height */
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.product-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  flex: 1; /* fills the card so the footer can sit at the bottom */
+}
+
+.product-card__category {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+}
+
+/* Full name always visible: it wraps instead of being cut off with "..." */
+.product-card__name {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.product-card__name a {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.product-card__name a:hover {
+  text-decoration: underline;
+}
+
+.product-card__meta {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 0.92rem;
+}
+
+/* Price and stock get separate rows inside a footer pinned to the bottom */
+.product-card__footer {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--space-1);
+}
+
+.product-card__price {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+/* Unavailable cards stay readable: only the image is faded, text keeps full contrast */
+.product-card--unavailable .product-image {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+}
+
+/* Stock line: colour + icon + words */
+.stock {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.stock--in {
+  color: var(--color-success);
+}
+
+.stock--low {
+  color: var(--color-warning);
+}
+
+.stock--out {
+  color: var(--color-danger);
+}
+
+.tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  background: #e8efe6;
+  color: var(--color-primary-dark);
+  text-transform: capitalize;
+}
+
+/* Product image and illustrated fallback */
+.product-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.product-image--fallback {
+  display: grid;
+  place-items: center;
+  font-size: 3.5rem;
+}
+
+.product-image--detail {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  font-size: 7rem;
+}
+
+.tone-meal {
+  background: linear-gradient(135deg, #f3d9b8, #e7b98a);
+}
+
+.tone-breakfast {
+  background: linear-gradient(135deg, #f6e7b5, #ead18a);
+}
+
+.tone-snack {
+  background: linear-gradient(135deg, #e9dcc6, #d4bd98);
+}
+
+.tone-drink {
+  background: linear-gradient(135deg, #cfe3dc, #a8cbbd);
+}
+
+.tone-gear {
+  background: linear-gradient(135deg, #d7ddd4, #b3beb0);
+}
