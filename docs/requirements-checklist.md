@@ -5,4 +5,4 @@
 - Recovery and accessibility: manual observations and reproduction steps in docs/verification.md.
 - Local verification: production build succeeded and all 14 automated rule tests passed on 16 November 2026.
 - Submission files: PDF report with annotated evidence and source archive generated from the submission commit.
-- Pending publication: add the live URL and verify assets, checkout and direct route refresh on the public deployment.
+- Published at https://trailbite.vercel.app/. Direct requests to the homepage, shop, product and checkout routes returned HTTP 200. The served JavaScript and CSS matched the local production build.

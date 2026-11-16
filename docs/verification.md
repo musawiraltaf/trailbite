@@ -62,4 +62,4 @@ Use **Assignment demo controls** at the bottom of any page.
 | `npm run build` succeeds | Pass |
 | Production build: direct loads of `/shop`, `/products/:id`, `/trails/:id`, `/journal/:slug`, `/checkout`, `/confirmation`, unknown paths all return the app (HTTP 200) | Pass (`vite preview`); Vercel uses `vercel.json` rewrites |
 | Fonts and JS/CSS assets load from the build | Pass |
-| Public deployment matches final commit | To check after deploying |
+| Public deployment matches final commit | Public homepage, shop, product and checkout paths returned the app. Served JavaScript and CSS matched the local production files by SHA-256. |

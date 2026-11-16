@@ -10,7 +10,7 @@ Built for CS4032 Web Programming, Assignment 02. All orders are **simulated**: n
 - Roll number: 24I2134
 - Section: A
 - GitHub repository: https://github.com/musawiraltaf/trailbite
-- Live deployment: pending publication
+- Live deployment: https://trailbite.vercel.app/
 - Submission revision: see the accompanying PDF report.
 
 ## Commands
