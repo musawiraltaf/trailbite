@@ -7,17 +7,17 @@ import CartToast from './CartToast.jsx'
 export default function Layout() {
   const { pathname } = useLocation()
   const mainRef = useRef(null)
-  const firstRender = useRef(true)
+  const previousPath = useRef(pathname)
 
   // On every route change: scroll to the top and move keyboard focus to the new
   // page's content, so screen-reader and keyboard users start at the right place.
-  // Skipped on the very first load so the skip link stays first in tab order.
+  // Comparing with the previous path (instead of a "first render" flag) means a
+  // fresh page load never steals focus, even when StrictMode runs effects twice,
+  // so the skip link stays first in the tab order.
   useEffect(() => {
+    if (previousPath.current === pathname) return
+    previousPath.current = pathname
     window.scrollTo(0, 0)
-    if (firstRender.current) {
-      firstRender.current = false
-      return
-    }
     mainRef.current?.focus({ preventScroll: true })
   }, [pathname])
 

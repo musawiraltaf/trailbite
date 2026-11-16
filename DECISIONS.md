@@ -12,7 +12,7 @@ Code locations and evidence are completed as each feature is built.
 - **Alternative:** Show a coloured stock badge over the product image.
 - **Reason:** Shoppers compare name, size, price and availability without opening each product.
 - **Tradeoff:** Cards are taller, so fewer fit on screen.
-- **Code location:** `src/components/ProductCard.jsx` (`ProductCard`), `src/components/StockStatus.jsx` (`getStockLabel`), `src/styles/global.css` section 7 (`.product-card__body`, `.product-card__footer`)
+- **Code location:** `src/components/ProductCard.jsx` (`ProductCard`), `src/components/StockStatus.jsx` (`getStockLabel`), `src/styles/shop.css` (`.product-card__body`, `.product-card__footer`, phone layout under 560 px)
 - **Evidence:** TODO
 
 ## D02 — Build the cart in place with shared state (interaction / state)

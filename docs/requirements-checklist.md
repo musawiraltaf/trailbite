@@ -52,7 +52,7 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 | FR14 | Async mock loader with loading, failure, retry | `src/lib/mockLoader.js`, `CatalogueContext`, `CatalogueStatus` | 🟡 works; demo toggle in M5 |
 | FR15 | Empty dataset vs no matches, with guidance | `ShopPage` (`NoMatches`) | 🟡 no-match done; empty-dataset demo in M5 |
 | FR16 | Clear confirmation | `ConfirmationPage` (survives refresh via sessionStorage) | ✅ |
-| FR17 | Works at 390 px and 1280 px, and by keyboard | CSS + manual check | ⬜ M4 |
+| FR17 | Works at 390 px and 1280 px, and by keyboard | Checked every page at both widths; focus moves to main on route change | ✅ |
 | FR18 | All three problems addressed in the app | P1 `ProductCard`, P2 stepper + cart, P3 `ProductPage` sections | ⬜ |
 | FR19 | Deployed: assets, navigation, nested-route refresh | Vercel + `vercel.json` | ⬜ M5 |
 
@@ -85,16 +85,16 @@ Status: ✅ done · 🟡 partial · ⬜ to do
 
 | Requirement | Status |
 |---|---|
-| Consistent identity, hierarchy, spacing, typography, colour roles | ⬜ M4 |
-| Clear primary and secondary actions | ⬜ M4 |
-| Selected, unavailable, error and success states | ⬜ M3/M4 |
+| Consistent identity, hierarchy, spacing, typography, colour roles | ✅ `tokens.css` |
+| Clear primary and secondary actions | ✅ one ember primary, one outline secondary |
+| Selected, unavailable, error and success states | ✅ |
 | Semantic HTML, logical headings | 🟡 |
 | Labels tied to inputs | ✅ `FormField`, `ShopFilters` |
 | Buttons for actions, links for navigation | 🟡 |
-| Keyboard access, visible focus | ⬜ M4 |
-| Alt text for meaningful images | ⬜ |
-| Status colours always paired with text | ⬜ |
-| No page-wide horizontal overflow at 390 px | ⬜ M4 |
+| Keyboard access, visible focus | ✅ |
+| Alt text for meaningful images | ✅ SVG art has `role=img` + label; decorative art hidden |
+| Status colours always paired with text | ✅ stock, difficulty, errors use icon + words |
+| No page-wide horizontal overflow at 390 px | ✅ checked on every page |
 | Authored CSS only, no UI kits or templates | ✅ |
 | Annotated screenshots of the final app | ⬜ report |
 
